@@ -3,17 +3,17 @@ import 'package:path/path.dart' as path;
 import 'package:process_run/shell.dart';
 void main() async {
   Shell shell = Shell();
-  await shell.run('flutter build web');
+  await shell.run('flutter build web --release');
   // Delete public folder if exists
-  if(Directory('docs').existsSync()) {
-    Directory('docs').deleteSync(recursive: true);
+  if(Directory('public').existsSync()) {
+    Directory('public').deleteSync(recursive: true);
   }
   // Create public folder
-  Directory('docs').createSync();
-  // Copy assets to the newly built build folder
-  await copyDirectory(Directory('assets'), Directory('build/web/assets'));
+  Directory('public').createSync();
+  // // Copy assets to the newly built build folder
+  // await copyDirectory(Directory('assets'), Directory('build/web/assets'));
   // Copy all build files to public folder
-  await copyDirectory(Directory('build/web'), Directory('docs'));
+  await copyDirectory(Directory('build/web'), Directory('public'));
   // Success
   print('Build for web success.');
 }
